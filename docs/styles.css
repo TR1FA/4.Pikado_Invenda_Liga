@@ -1,0 +1,177 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("images/Pozadina.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 20px;
+    color: white;
+}
+
+h1, h2, h3, p, td, th, a {
+    color: white;
+}
+
+/* Stil za zaglavlje */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+
+/* Stil za logotip */
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+/* Grupa sa prikazom u 2x2 formatu */
+.group.A, .group.B {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* Pojedinačne kartice igrača */
+.player-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 4px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    width: calc(50% - 20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.player-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.player-card h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: white;
+}
+
+.player-card p {
+    margin: 5px 0;
+    color: white;
+}
+
+/* Specifične klase za boje okvira */
+.player-card.gold { border: 4px solid gold; }
+.player-card.silver { border: 4px solid silver; }
+.player-card.brown { border: 4px solid brown; }
+.player-card.blue { border: 4px solid blue; }
+
+/* Diskvalifikovani */
+.player-card.disqualified, .group.Odsutni .player-card {
+    border: 4px solid red;
+    color: red;
+    font-weight: bold;
+}
+
+/* Breket */
+.match {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    color: white;
+}
+
+/* Strelica */
+.arrow {
+    font-size: 32px;
+    margin-left: 10px;
+    color: white;
+}
+
+/* Sekcija za ažuriranje bodova */
+#score-update {
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+#score-update select, #score-update button {
+    margin-top: 10px;
+}
+
+/* Link do tabele */
+.tabela-link {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.tabela-link a {
+    font-size: 1.2em;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.tabela-link a:hover {
+    color: gold;
+}
+
+/* Tabela lidera */
+.leaderboard {
+    margin: 20px;
+}
+
+#leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+}
+
+#leaderboard-table th, #leaderboard-table td {
+    border: 2px solid white;
+    padding: 8px;
+    text-align: center;
+}
+
+#leaderboard-table th {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Diskvalifikovani u tabeli */
+#leaderboard-table .disq {
+    border: 2px solid red;
+    color: red;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    height: 30px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

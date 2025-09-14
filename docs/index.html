@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treća Pikado INVENDA Liga 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url("images/Pozadina.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: white;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        header h1 {
+            flex: 1;
+            text-align: center;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        .group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .player-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid white;
+            border-radius: 8px;
+            padding: 10px;
+            width: 160px;
+            text-align: center;
+            color: white;
+        }
+
+        .player-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        .gold {
+            border-color: gold;
+        }
+
+        .silver {
+            border-color: silver;
+        }
+
+        .brown {
+            border-color: #8B4513;
+        }
+
+        .leaderboard table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: black;
+        }
+
+        .leaderboard th, .leaderboard td {
+            border: 2px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .leaderboard th {
+            background-color: lightblue;
+        }
+
+        .playoff {
+            background-color: lightgreen;
+            font-weight: bold;
+        }
+
+        .tabela-link {
+            margin-top: 10px;
+        }
+
+        .tabela-link a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Responsive stilovi */
+        @media (max-width: 768px) {
+            .group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .player-card {
+                width: 90%;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo {
+                height: 40px;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            .leaderboard table, .leaderboard th, .leaderboard td {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://github.com/TR1FA/3.Pikado_Invenda_Liga/blob/main/docs/images/Logo.png?raw=true" alt="Logo" class="logo">
+        <h1>Treća Pikado INVENDA Liga 2025</h1>
+        <img src="https://github.com/TR1FA/3.Pikado_Invenda_Liga/blob/main/docs/images/Logo.png?raw=true" alt="Logo" class="logo">
+    </header>
+
+    <h1>Prikaz igrača</h1>
+
+    <!-- Prva grupa -->
+    <section class="tournament-info">
+        <h2>Prva grupa</h2>
+        <div class="group A">
+            <div class="player-card silver" id="card-bojanm">
+                <img src="images/bojan_majkic.jpg" alt="Bojan Majkić">
+                <h3>Bojan Majkić</h3>
+                <p>Bodovi: <span id="leader-bojanm">23</span></p>
+                <p>Kolo bodovi: <span id="round-bojanm">3</span></p>
+            </div>
+
+            <div class="player-card" id="card-bojanp">
+                <img src="images/bojan_milanovic.jpg" alt="Bojan Milanović">
+                <h3>Bojan Milanović</h3>
+                <p>Bodovi: <span id="leader-bojanp">8</span></p>
+                <p>Kolo bodovi: <span id="round-dejan">0</span></p>
+            </div>
+
+            <div class="player-card brown" id="card-djordje">
+                <img src="images/djordje_trifunovic.jpg" alt="Đorđe Trifunović">
+                <h3>Đorđe Trifunović</h3>
+                <p>Bodovi: <span id="leader-djordje">27</span></p>
+                <p>Kolo bodovi: <span id="round-djordje">2</span></p>
+            </div>
+
+            <div class="player-card" id="card-goran">
+                <img src="images/goran_cimesa.jpg" alt="Goran Cimeša">
+                <h3>Goran Cimeša</h3>
+                <p>Bodovi: <span id="leader-goran">15</span></p>
+                <p>Kolo bodovi: <span id="round-goran">0</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Druga grupa -->
+    <section class="tournament-info">
+        <h2>Druga grupa</h2>
+        <div class="group B">
+            <div class="player-card gold" id="card-milos">
+                <img src="images/milos_ivkovic.jpg" alt="Miloš Ivković">
+                <h3>Miloš Ivković</h3>
+                <p>Bodovi: <span id="leader-milos">39</span></p>
+                <p>Kolo bodovi: <span id="round-milos">5</span></p>
+            </div>
+
+            <div class="player-card" id="card-leonardo">
+                <img src="images/leonardo_giric.jpg" alt="Leonardo Giric">
+                <h3>Leonardo Giric</h3>
+                <p>Bodovi: <span id="leader-leonardo">7</span></p>
+                <p>Kolo bodovi: <span id="round-leonardo">0</span></p>
+            </div>
+
+            <div class="player-card brown" id="card-dejan">
+                <img src="images/dejan_markovic.jpg" alt="Dejan Marković">
+                <h3>Dejan Marković</h3>
+                <p>Bodovi: <span id="leader-dejan">30</span></p>
+                <p>Kolo bodovi: <span id="round-dejan">2</span></p>
+            </div>
+
+            <div class="player-card" id="card-dalibor">
+                <img src="images/dalibor_giric.jpg" alt="Dalibor Giric">
+                <h3>Dalibor Giric</h3>
+                <p>Bodovi: <span id="leader-dalibor">7</span></p>
+                <p>Kolo bodovi: <span id="round-dalibor">0</span></p>
+            </div>
+        </div>
+    </section>
+
+     <div class="tabela-link">
+        <a href="https://github.com/TR1FA/3.Pikado_Invenda_Liga/blob/main/docs/images/Baraz.png?raw=true" target="_blank">Kako je izgledao Baraž kola</a>
+    </div>
+
+    <div class="tabela-link">
+        <a href="https://github.com/TR1FA/3.Pikado_Invenda_Liga/blob/main/docs/images/Tabela.png?raw=true" target="_blank">Tabela svih kola</a>
+    </div>
+
+    <div class="tabela-link">
+        <a href="https://github.com/TR1FA/3.Pikado_Invenda_Liga/blob/main/docs/images/Kola.png?raw=true" target="_blank">Preostala Kola</a>
+    </div>
+
+    <div class="tabela-link">
+        <a href="https://github.com/TR1FA/3.Pikado_Invenda_Liga/blob/main/docs/images/Statistika.png?raw=true" target="_blank">Statistika</a>
+    </div>
+
+    <!-- Tabela lidera -->
+    <section class="leaderboard">
+        <h2>Trenutni lideri</h2>
+        <table id="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rang</th>
+                    <th>Igrač</th>
+                    <th>Bodovi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="playoff">
+                    <td>1.</td>
+                    <td><strong>Miloš Ivković</strong></td>
+                    <td><strong>39</strong></td>
+                </tr>
+                <tr class="playoff">
+                    <td>2.</td>
+                    <td><strong>Dejan Marković</strong></td>
+                    <td><strong>30</strong></td>
+                </tr>
+                <tr class="playoff">
+                    <td>3.</td>
+                    <td><strong>Đorđe Trifunović</strong></td>
+                    <td><strong>27</strong></td>
+                </tr>
+                <tr class="playoff">
+                    <td>4.</td>
+                    <td><strong>Bojan Majkić</strong></td>
+                    <td><strong>23</strong></td>
+                </tr>
+                <tr>
+                    <td>5.</td>
+                    <td>Goran Cimeša</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>6.</td>
+                    <td>Bojan Milanović</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>7.</td>
+                    <td>Dalibor Giric</td>
+                    <td>7</td>
+                </tr>
+                <tr>
+                    <td>8.</td>
+                    <td>Leonardo Giric</td>
+                    <td>7</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>&copy; Treća Pikado INVENDA Liga 2025</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
