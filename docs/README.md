@@ -1,4 +1,4 @@
-🎯Treća Pikado Invenda Liga🎯
+🎯Četvrta Pikado Invenda Liga🎯
 
 <!--
 **TR1FA/TR1FA** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
