@@ -1169,6 +1169,8 @@
     </div>`;
     document.body.appendChild(m);
   }
+
+  function renderStreamSchedule() {
     const matchups = koloMatchups[koloNum] || [];
     const el = document.getElementById('stream-schedule');
     if(!el) return;
