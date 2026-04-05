@@ -849,26 +849,25 @@
   }
 
   async function loadData() {
-    showLoading('Učitavanje podataka...');
+    // Odmah prikaži sa default podacima
+    players      = JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
+    koloNum      = 7;
+    koloMatchups = {};
+    renderAll();
+
+    // Pokušaj učitati sa GitHub-a u pozadini
     try {
-      // Raw GitHub URL — nema CORS problema, javno dostupno
       const res = await fetch(RAW_URL + '?t=' + Date.now());
       if(res.ok) {
         const data = await res.json();
-        players      = data.players      || JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
-        koloNum      = data.koloNum      || 7;
+        players      = data.players      || players;
+        koloNum      = data.koloNum      || koloNum;
         koloMatchups = data.koloMatchups || {};
-      } else {
-        throw new Error('Fajl ne postoji još');
+        renderAll();
       }
     } catch(e) {
       console.warn('GitHub load greška, koristim default podatke:', e.message);
-      players      = JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
-      koloNum      = 7;
-      koloMatchups = {};
     }
-    hideLoading();
-    renderAll();
   }
 
   async function saveData() {
