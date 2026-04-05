@@ -1,0 +1,14 @@
+{
+  "players": [
+    {"id": "bojanm",   "name": "Bojan Majkić",     "pts": 15, "round": 0, "group": "A"},
+    {"id": "milos",    "name": "Miloš Ivković",     "pts": 14, "round": 0, "group": "B"},
+    {"id": "djordje",  "name": "Đorđe Trifunović",  "pts": 11, "round": 0, "group": "B"},
+    {"id": "goran",    "name": "Goran Cimeša",       "pts": 11, "round": 0, "group": "A"},
+    {"id": "leonardo", "name": "Leonardo Giric",     "pts": 6,  "round": 0, "group": "B"},
+    {"id": "dalibor",  "name": "Dalibor Giric",      "pts": 6,  "round": 0, "group": "A"},
+    {"id": "dejan",    "name": "Dejan Marković",     "pts": 5,  "round": 0, "group": "A"},
+    {"id": "bojanp",   "name": "Bojan Milanović",    "pts": 4,  "round": 0, "group": "B"}
+  ],
+  "koloNum": 7,
+  "koloMatchups": {}
+}
