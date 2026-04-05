@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Četvrta Pikado INVENDA Liga 2025-2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark: #0a0a12;
+      --darker: #06060e;
+      --card: #12121e;
+      --card2: #1a1a2e;
+      --gold: #f0b429;
+      --gold2: #e09418;
+      --silver: #a8b2c1;
+      --bronze: #cd7f40;
+      --accent: #e63946;
+      --accent2: #c1121f;
+      --green: #2dc653;
+      --blue: #3a86ff;
+      --text: #f0f0f0;
+      --muted: #7a7a9a;
+      --border: rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--darker);
+      color: var(--text);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 20% 10%, rgba(230,57,70,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 90%, rgba(58,134,255,0.06) 0%, transparent 60%),
+        url("images/Pozadina.png");
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(180deg, rgba(6,6,14,0.98) 0%, rgba(10,10,18,0.92) 100%);
+      border-bottom: 1px solid var(--border2);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 14px; }
+    .logo-wrap img { height: 42px; }
+    .logo-text { line-height: 1.1; }
+    .logo-text h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 2px;
+      color: var(--gold);
+    }
+    .logo-text p { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+    .admin-badge {
+      display: none;
+      background: rgba(230,57,70,0.15);
+      border: 1px solid rgba(230,57,70,0.3);
+      color: var(--accent);
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── TABS ── */
+    nav {
+      background: rgba(10,10,18,0.95);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 64px;
+      z-index: 99;
+      backdrop-filter: blur(8px);
+    }
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+    }
+    .tab-btn {
+      padding: 14px 24px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+    }
+
+    /* ── VIEWS ── */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* ── LEADERBOARD ── */
+    .lb-header-row {
+      display: grid;
+      grid-template-columns: 52px 1fr 100px 90px 80px;
+      padding: 8px 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .lb-row {
+      display: grid;
+      grid-template-columns: 52px 1fr 100px 90px 80px;
+      align-items: center;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .lb-row:last-child { border-bottom: none; }
+    .lb-row:hover { background: rgba(255,255,255,0.03); }
+    .lb-row.playoff { background: rgba(45,198,83,0.05); }
+    .lb-row.playoff:hover { background: rgba(45,198,83,0.09); }
+    .lb-rank {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+    .lb-rank.r1 { color: var(--gold); }
+    .lb-rank.r2 { color: var(--silver); }
+    .lb-rank.r3 { color: var(--bronze); }
+    .lb-rank.rn { color: var(--muted); font-size: 18px; }
+    .lb-name { font-size: 15px; font-weight: 500; }
+    .lb-pts {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .lb-round { font-size: 13px; color: var(--muted); }
+    .playoff-pill {
+      display: inline-block;
+      background: rgba(45,198,83,0.15);
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(45,198,83,0.25);
+      text-transform: uppercase;
+    }
+    .lb-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .lb-card-header {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .lb-card-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: var(--gold);
+    }
+    .lb-card-header span {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── QUICK STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .stat-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .stat-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    /* ── GROUPS ── */
+    .groups-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .group-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .group-card-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .player-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .player-item:last-child { border-bottom: none; }
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+      border: 2px solid;
+    }
+    .av-gold { background: rgba(240,180,41,0.15); color: var(--gold); border-color: rgba(240,180,41,0.4); }
+    .av-silver { background: rgba(168,178,193,0.12); color: var(--silver); border-color: rgba(168,178,193,0.35); }
+    .av-bronze { background: rgba(205,127,64,0.12); color: var(--bronze); border-color: rgba(205,127,64,0.35); }
+    .av-default { background: rgba(255,255,255,0.05); color: var(--muted); border-color: var(--border); }
+    .player-info { flex: 1; }
+    .player-name-text { font-size: 14px; font-weight: 500; }
+    .player-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .pts-pill {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      min-width: 36px;
+      text-align: right;
+    }
+
+    /* ── LINKS ── */
+    .links-section { margin-top: 24px; }
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .link-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .link-card:hover {
+      border-color: rgba(240,180,41,0.3);
+      background: rgba(240,180,41,0.05);
+    }
+    .link-icon { font-size: 20px; }
+    .link-text { font-size: 13px; font-weight: 500; }
+
+    /* ── ADMIN LOGIN ── */
+    .login-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+    .login-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 40px 36px;
+      width: 340px;
+      text-align: center;
+    }
+    .login-icon { font-size: 48px; margin-bottom: 20px; }
+    .login-card h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .login-card p { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+    .login-card input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 12px;
+      font-family: 'Barlow', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-card input:focus { border-color: rgba(240,180,41,0.4); }
+    .btn-login {
+      width: 100%;
+      background: var(--gold);
+      color: #0a0a12;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-login:hover { background: var(--gold2); }
+    .login-error {
+      color: var(--accent);
+      font-size: 12px;
+      margin-bottom: 10px;
+      display: none;
+    }
+    .login-hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    /* ── ADMIN PANEL ── */
+    .admin-panel { display: none; }
+    .admin-section {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .admin-section-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .admin-section-header h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .kolo-badge {
+      background: rgba(240,180,41,0.15);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(240,180,41,0.3);
+      letter-spacing: 0.5px;
+    }
+    .kolo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+    .kolo-cell {
+      background: var(--card);
+      padding: 14px 16px;
+    }
+    .kolo-player-name {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .kolo-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 18px;
+      font-family: 'Bebas Neue', sans-serif;
+      color: var(--gold);
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .kolo-input:focus { border-color: rgba(240,180,41,0.5); }
+    .save-kolo-btn {
+      margin: 16px;
+      background: var(--gold);
+      color: #0a0a12;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 28px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .save-kolo-btn:hover { background: var(--gold2); }
+    .save-success {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 500;
+      margin: 0 16px 16px;
+      display: none;
+    }
+
+    .edit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+    .edit-cell {
+      background: var(--card);
+      padding: 14px 16px;
+    }
+    .edit-player-name {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .edit-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .edit-input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      padding: 7px 8px;
+      font-size: 16px;
+      font-family: 'Bebas Neue', sans-serif;
+      color: var(--text);
+      text-align: center;
+      outline: none;
+      width: 60px;
+    }
+    .edit-input:focus { border-color: rgba(240,180,41,0.4); }
+    .edit-save-btn {
+      background: rgba(45,198,83,0.15);
+      color: var(--green);
+      border: 1px solid rgba(45,198,83,0.3);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: background 0.15s;
+    }
+    .edit-save-btn:hover { background: rgba(45,198,83,0.25); }
+
+    .logout-btn {
+      background: none;
+      border: 1px solid var(--border2);
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .logout-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .player-card-bio {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: var(--border-radius-lg, 12px);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .player-card-bio:hover { border-color: rgba(240,180,41,0.4); transform: translateY(-2px); }
+    .player-card-bio img { width:100%; aspect-ratio:1/1; object-fit:cover; object-position:top; }
+    .player-card-bio .pcb-info { padding:12px 14px; }
+    .player-card-bio .pcb-name { font-size:14px; font-weight:600; }
+    .player-card-bio .pcb-pts { font-size:12px; color:var(--muted); margin-top:3px; }
+
+    /* Modal */
+    .modal-overlay {
+      position:fixed;top:0;left:0;right:0;bottom:0;
+      background:rgba(6,6,14,0.88);
+      display:flex;align-items:center;justify-content:center;
+      z-index:500;backdrop-filter:blur(6px);
+      padding:16px;
+    }
+    .modal-box {
+      background:var(--card);
+      border:1px solid var(--border2);
+      border-radius:16px;
+      max-width:460px;width:100%;
+      max-height:85vh;overflow-y:auto;
+    }
+    .modal-header { display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border); }
+    .modal-close { background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1; }
+    .modal-close:hover { color:var(--text); }
+    .modal-img { width:100%;max-height:260px;object-fit:cover;object-position:top; }
+    .modal-body { padding:20px; }
+    .modal-stat { display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px; }
+    .modal-stat:last-child { border-bottom:none; }
+    .modal-stat-label { color:var(--muted); }
+    .modal-stat-val { font-weight:600; }
+
+    @media (max-width:640px) {
+      .nav-inner { overflow-x:auto; }
+      .tab-btn { padding:12px 12px; font-size:12px; white-space:nowrap; }
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .groups-grid { grid-template-columns: 1fr; }
+      .links-grid { grid-template-columns: 1fr; }
+      .kolo-grid { grid-template-columns: repeat(2, 1fr); }
+      .edit-grid { grid-template-columns: repeat(2, 1fr); }
+      .lb-header-row, .lb-row { grid-template-columns: 44px 1fr 70px 60px; }
+      .lb-header-row .col-status, .lb-row .col-status { display: none; }
+      .logo-text h1 { font-size: 16px; }
+      .tab-btn { padding: 12px 14px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <img src="https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/Logo.png?raw=true" alt="Logo" onerror="this.style.display='none'">
+      <div class="logo-text">
+        <h1>🎯 INVENDA LIGA</h1>
+        <p>Četvrta sezona · 2025-2026</p>
+      </div>
+    </div>
+    <div class="admin-badge" id="admin-badge">⚡ ADMIN</div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <button class="tab-btn active" onclick="showTab('tabela')" id="tab-tabela">Tabela</button>
+    <button class="tab-btn" onclick="showTab('igraci')" id="tab-igraci">Igrači</button>
+    <button class="tab-btn" onclick="showTab('grupe')" id="tab-grupe">Mečevi</button>
+    <button class="tab-btn" onclick="showTab('galerija')" id="tab-galerija">Galerija</button>
+    <button class="tab-btn" onclick="showTab('stream')" id="tab-stream">🔴 Live</button>
+    <button class="tab-btn" onclick="showTab('admin')" id="tab-admin">🔐 Admin</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ── TABELA VIEW ── -->
+  <div class="view active" id="view-tabela">
+    <div class="stats-grid" id="stats-grid"></div>
+
+    <div class="lb-card">
+      <div class="lb-card-header">
+        <h2>Tabela</h2>
+        <span>· Sezona 2025-2026</span>
+      </div>
+      <div class="lb-header-row">
+        <div>#</div>
+        <div>Igrač</div>
+        <div style="text-align:center">Bodovi</div>
+        <div style="text-align:center">Kolo</div>
+        <div class="col-status" style="text-align:center">Status</div>
+      </div>
+      <div id="lb-body"></div>
+    </div>
+
+    <div class="links-section">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Dokumenti</div>
+      <div class="links-grid">
+        <a class="link-card" href="https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/Baraz.png?raw=true" target="_blank">
+          <span class="link-icon">⚔️</span>
+          <span class="link-text">Baraž kola</span>
+        </a>
+        <a class="link-card" href="https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/Tabela.png?raw=true" target="_blank">
+          <span class="link-icon">📊</span>
+          <span class="link-text">Tabela svih kola</span>
+        </a>
+        <a class="link-card" href="https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/Kola.png?raw=true" target="_blank">
+          <span class="link-icon">📅</span>
+          <span class="link-text">Preostala kola</span>
+        </a>
+        <a class="link-card" href="https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/Statistika.png?raw=true" target="_blank">
+          <span class="link-icon">📈</span>
+          <span class="link-text">Statistika</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GRUPE VIEW ── -->
+  <div class="view" id="view-grupe">
+    <div class="lb-card">
+      <div class="lb-card-header">
+        <h2>Mečevi</h2>
+        <span id="kolo-matchup-badge" style="font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:16px;letter-spacing:1px">Kolo 7</span>
+      </div>
+      <div id="matchups-list"></div>
+    </div>
+  </div>
+
+  <!-- ── IGRAČI VIEW ── -->
+  <div class="view" id="view-igraci">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;" id="players-grid"></div>
+  </div>
+
+  <!-- ── GALERIJA VIEW ── -->
+  <div class="view" id="view-galerija">
+    <div class="lb-card" style="overflow:hidden">
+      <div class="lb-card-header">
+        <h2>Galerija</h2>
+        <span style="font-size:12px;color:var(--muted)">Pikado Invenda Liga 2025-2026</span>
+      </div>
+      <div style="padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;" id="gallery-grid">
+
+        <div style="border-radius:10px;overflow:hidden;background:var(--card2);border:1px solid var(--border2);cursor:pointer" onclick="openGalleryModal(this)">
+          <img src="https://raw.githubusercontent.com/TR1FA/4.Pikado_Invenda_Liga/main/docs/images/gallery/Gogijeva_magija.jpg"
+               alt="Gogijeva magija" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block">
+          <div style="padding:10px 12px">
+            <div style="font-size:13px;font-weight:600;color:var(--text)">Gogijeva magija 🎯</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px">Goran Cimeša · 2025-2026</div>
+          </div>
+        </div>
+
+        <div style="border-radius:10px;overflow:hidden;background:var(--card2);border:1px solid var(--border2);cursor:pointer" onclick="openGalleryModal(this)">
+          <img src="https://raw.githubusercontent.com/TR1FA/4.Pikado_Invenda_Liga/main/docs/images/gallery/Prvi_180_na_novom_pikadu-Deki.jpg"
+               alt="Prvi 180 na novom pikadu" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block">
+          <div style="padding:10px 12px">
+            <div style="font-size:13px;font-weight:600;color:var(--text)">Prvi 180 na novom pikadu! 🏆</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px">Dejan Marković · 2025-2026</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STREAM VIEW ── -->
+  <div class="view" id="view-stream">
+    <div class="lb-card">
+      <div class="lb-card-header">
+        <h2 style="color:var(--accent)">🔴 Live Stream</h2>
+        <span style="font-size:12px;color:var(--muted)">Twitch · Pikado INVENDA Liga</span>
+      </div>
+      <div style="padding:20px">
+        <div id="stream-embed" style="width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#0e0e1a;display:flex;align-items:center;justify-content:center;">
+          <div id="stream-offline" style="text-align:center">
+            <div style="font-size:48px;margin-bottom:12px">📡</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--muted)">STREAM OFFLINE</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:8px">Pratite nas na Twitchu kad igramo sljedeće kolo</div>
+          </div>
+        </div>
+        <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+          <a id="twitch-link" href="https://twitch.tv/TR1FA" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:#9147ff;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px">
+            <span style="font-size:18px">📺</span> Prati na Twitchu
+          </a>
+          <div style="font-size:12px;color:var(--muted)">Pratite kanal da dobijete notifikaciju kad počne stream</div>
+        </div>
+        <div style="margin-top:20px;background:var(--card2);border-radius:8px;padding:16px">
+          <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Raspored sljedećeg kola</div>
+          <div id="stream-schedule" style="font-size:13px;color:var(--text)">Pogledajte tab Mečevi za raspored.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ADMIN VIEW ── -->
+  <div class="view" id="view-admin">
+
+    <div id="login-area">
+      <div class="login-wrap">
+        <div class="login-card">
+          <div class="login-icon">🎯</div>
+          <h2>Admin panel</h2>
+          <p>Unesite lozinku za pristup upravljačkoj ploči</p>
+          <div class="login-error" id="login-error">Pogrešna lozinka. Pokušajte ponovo.</div>
+          <input type="password" id="pw-input" placeholder="Lozinka..." onkeydown="if(event.key==='Enter')tryLogin()">
+          <button class="btn-login" onclick="tryLogin()">Prijavi se</button>
+          <p class="login-hint">Kontaktirajte administratora za pristup</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-panel" id="admin-panel">
+
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <h3>Mečevi kola</h3>
+          <span class="kolo-badge" id="matchup-kolo-badge">KOLO 7</span>
+        </div>
+        <div style="padding:16px">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Unesite mečeve za sljedeće kolo (po 4 meča)</div>
+          <div id="matchup-inputs"></div>
+          <button class="save-kolo-btn" onclick="saveMatchups()" style="margin:12px 0 0 0">✓ Sačuvaj mečeve</button>
+          <div class="save-success" id="matchup-success">✓ Mečevi sačuvani!</div>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <h3>Unos bodova po kolu</h3>
+          <span class="kolo-badge" id="kolo-badge">KOLO 7</span>
+        </div>
+        <div class="kolo-grid" id="kolo-grid"></div>
+        <button class="save-kolo-btn" onclick="saveRound()">✓ Sačuvaj kolo</button>
+        <div class="save-success" id="save-success">✓ Kolo sačuvano! Bodovi ažurirani.</div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <h3>Direktna izmjena bodova</h3>
+          <span style="font-size:12px;color:var(--muted)">Ukupni bodovi</span>
+        </div>
+        <div class="edit-grid" id="edit-grid"></div>
+      </div>
+
+      <button class="logout-btn" onclick="logout()" style="margin-right:10px">Odjavi se</button>
+      <button class="logout-btn" onclick="resetData()" style="border-color:rgba(230,57,70,0.3);color:#e63946">↺ Reset podataka</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© Četvrta Pikado INVENDA Liga 2025-2026</p>
+</footer>
+
+<script>
+  const ADMIN_PW = 'admin123';
+  const GITHUB_TOKEN = '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';
+  const GIST_ID = '0cb3532ed8f34ebbdc98bde418dd5a1b';
+  const GIST_URL = `https://api.github.com/gists/${GIST_ID}`;
+
+  let isAdmin = false, isSaving = false;
+  let koloNum = 7, koloMatchups = {};
+  let players = [];
+
+  const DEFAULT_PLAYERS = [
+    {id:'bojanm',  name:'Bojan Majkić',     pts:15, round:0, group:'A'},
+    {id:'milos',   name:'Miloš Ivković',    pts:14, round:0, group:'B'},
+    {id:'djordje', name:'Đorđe Trifunović', pts:11, round:0, group:'B'},
+    {id:'goran',   name:'Goran Cimeša',     pts:11, round:0, group:'A'},
+    {id:'leonardo',name:'Leonardo Giric',   pts:6,  round:0, group:'B'},
+    {id:'dalibor', name:'Dalibor Giric',    pts:6,  round:0, group:'A'},
+    {id:'dejan',   name:'Dejan Marković',   pts:5,  round:0, group:'A'},
+    {id:'bojanp',  name:'Bojan Milanović',  pts:4,  round:0, group:'B'},
+  ];
+
+  async function loadData() {
+    // Odmah prikaži default podatke
+    players = JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
+    koloNum = 7; koloMatchups = {};
+    renderAll();
+
+    // Učitaj sa Gist-a
+    try {
+      const res = await fetch(GIST_URL, {
+        headers: { 'Accept': 'application/vnd.github.v3+json' }
+      });
+      if (res.ok) {
+        const gist = await res.json();
+        const content = gist.files['liga.json'].content;
+        const d = JSON.parse(content);
+        players      = d.players      || players;
+        koloNum      = d.koloNum      || koloNum;
+        koloMatchups = d.koloMatchups || {};
+        renderAll();
+      }
+    } catch(e) { console.warn('Gist load greška:', e.message); }
+  }
+
+  async function saveData() {
+    if (isSaving) return;
+    isSaving = true;
+    try {
+      const content = JSON.stringify({players, koloNum, koloMatchups}, null, 2);
+      const res = await fetch(GIST_URL, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `token ${GITHUB_TOKEN}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          files: { 'liga.json': { content } }
+        })
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    } catch(e) {
+      console.error('Save greška:', e);
+      alert('Greška pri čuvanju: ' + e.message);
+    }
+    isSaving = false;
+  }
+
+  function showLoading(msg) {
+    let el = document.getElementById('loading-overlay');
+    if(!el) {
+      el = document.createElement('div');
+      el.id = 'loading-overlay';
+      el.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(6,6,14,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(4px)';
+      el.innerHTML = '<div style="font-family:Bebas Neue,sans-serif;font-size:32px;color:#f0b429;letter-spacing:3px;margin-bottom:12px">🎯 INVENDA LIGA</div><div id="loading-msg" style="color:#7a7a9a;font-size:14px;letter-spacing:1px"></div>';
+      document.body.appendChild(el);
+    }
+    document.getElementById('loading-msg').textContent = msg;
+    el.style.display = 'flex';
+  }
+
+  function hideLoading() {
+    const el = document.getElementById('loading-overlay');
+    if(el) el.style.display = 'none';
+  }
+
+  function initials(name) {
+    return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  }
+
+  function sorted() {
+    return [...players].sort((a,b)=>b.pts-a.pts);
+  }
+
+  function avatarClass(rank) {
+    if(rank===1) return 'av-gold';
+    if(rank===2) return 'av-silver';
+    if(rank===3) return 'av-bronze';
+    return 'av-default';
+  }
+
+  function rankClass(rank) {
+    if(rank===1) return 'r1';
+    if(rank===2) return 'r2';
+    if(rank===3) return 'r3';
+    return 'rn';
+  }
+
+  function renderStats() {
+    const s = sorted();
+    const leader = s[0];
+    const totalPts = players.reduce((a,p)=>a+p.pts,0);
+    document.getElementById('stats-grid').innerHTML = `
+      <div class="stat-card">
+        <div class="stat-label">Lider</div>
+        <div class="stat-val" style="font-size:18px;font-family:'Barlow Condensed';font-weight:700;">${leader.name.split(' ')[0]}</div>
+        <div class="stat-sub">${leader.pts} bodova</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Igrača</div>
+        <div class="stat-val">${players.length}</div>
+        <div class="stat-sub">u ligi</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Kolo</div>
+        <div class="stat-val">${koloNum - 1}</div>
+        <div class="stat-sub">odigranih</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Playoff</div>
+        <div class="stat-val" style="color:var(--green)">4</div>
+        <div class="stat-sub">mjesta</div>
+      </div>
+    `;
+  }
+
+  const LIGA_TITLES = {
+    'dejan':   { stars: 1, title: 'Pobjednik 1. Pikado Invenda Lige' },
+    'djordje': { stars: 1, title: 'Pobjednik 2. Pikado Invenda Lige' },
+    'milos':   { stars: 1, title: 'Pobjednik 3. Pikado Invenda Lige' },
+  };
+
+  function starsHtml(id) {
+    const t = LIGA_TITLES[id];
+    if (!t) return '';
+    return `<span style="color:#f0b429;font-size:16px;margin-left:8px;vertical-align:middle;" title="${t.title}">★</span>`;
+  }
+
+  function renderLeaderboard() {
+    const s = sorted();
+    document.getElementById('lb-body').innerHTML = s.map((p,i)=>{
+      const rank = i+1;
+      const playoff = rank <= 4;
+      const ptsColor = p.pts >= 13 ? '#f0b429' : p.pts >= 9 ? '#a8b2c1' : p.pts >= 5 ? '#cd7f40' : 'var(--text)';
+      return `<div class="lb-row${playoff?' playoff':''}">
+        <div class="lb-rank ${rankClass(rank)}">${rank}</div>
+        <div class="lb-name">${p.name}${starsHtml(p.id)}</div>
+        <div class="lb-pts" style="text-align:center;color:${ptsColor}">${p.pts}</div>
+        <div class="lb-round" style="text-align:center">${p.round > 0 ? '+'+p.round : '—'}</div>
+        <div class="col-status" style="text-align:center">${playoff?'<span class="playoff-pill">Playoff</span>':''}</div>
+      </div>`;
+    }).join('');
+  }
+
+  const H2H = {"dejan": {"milos": {"qf": "0-1 (1:2)", "sf": "x", "f": "x"}, "djordje": {"qf": "0-1 (0:2)", "sf": "x", "f": "0-1 (0:2)"}, "bojanm": {"qf": "0-1 (0:2)", "sf": "x", "f": "x"}, "goran": {"qf": "1-0 (2:1)", "sf": "1-0 (2:1)", "f": "x"}, "bojanp": {"qf": "x", "sf": "x", "f": "x"}, "dalibor": {"qf": "0-0 (0:0)", "sf": "0-1 (1:2)", "f": "x"}, "leonardo": {"qf": "x", "sf": "x", "f": "x"}}, "milos": {"dejan": {"qf": "1-0 (2:1)", "sf": "x", "f": "x"}, "djordje": {"qf": "0-0 (0:0)", "sf": "0-2 (1:4)", "f": "x"}, "bojanm": {"qf": "x", "sf": "0-1 (1:2)", "f": "0-1 (1:2)"}, "goran": {"qf": "0-1 (0:2)", "sf": "x", "f": "x"}, "bojanp": {"qf": "0-0 (0:0)", "sf": "x", "f": "x"}, "dalibor": {"qf": "1-0 (2:0)", "sf": "x", "f": "x"}, "leonardo": {"qf": "1-0 (2:1)", "sf": "2-0 (4:1)", "f": "x"}}, "djordje": {"dejan": {"qf": "1-0 (2:0)", "sf": "x", "f": "1-0 (2:0)"}, "milos": {"qf": "0-0 (0:0)", "sf": "2-0 (4:1)", "f": "x"}, "bojanm": {"qf": "0-1 (0:2)", "sf": "x", "f": "0-1 (1:2)"}, "goran": {"qf": "0-1 (0:2)", "sf": "x", "f": "0-1 (0:2)"}, "bojanp": {"qf": "1-0 (2:0)", "sf": "1-0 (2:1)", "f": "x"}, "dalibor": {"qf": "x", "sf": "x", "f": "x"}, "leonardo": {"qf": "1-0 (2:1)", "sf": "x", "f": "x"}}, "bojanm": {"dejan": {"qf": "1-0 (2:0)", "sf": "x", "f": "x"}, "milos": {"qf": "x", "sf": "1-0 (2:1)", "f": "1-0 (2:1)"}, "djordje": {"qf": "1-0 (2:0)", "sf": "x", "f": "1-0 (2:1)"}, "goran": {"qf": "0-1 (1:2)", "sf": "1-0 (2:0)", "f": "x"}, "bojanp": {"qf": "0-1 (0:2)", "sf": "1-0 (2:0)", "f": "x"}, "dalibor": {"qf": "0-0 (0:0)", "sf": "x", "f": "1-0 (2:0)"}, "leonardo": {"qf": "1-0 (2:1)", "sf": "x", "f": "x"}}, "goran": {"dejan": {"qf": "0-1 (1:2)", "sf": "0-1 (1:2)", "f": "x"}, "milos": {"qf": "1-0 (2:0)", "sf": "x", "f": "x"}, "djordje": {"qf": "1-0 (2:0)", "sf": "x", "f": "1-0 (2:0)"}, "bojanm": {"qf": "1-0 (2:1)", "sf": "0-1 (0:2)", "f": "x"}, "bojanp": {"qf": "x", "sf": "x", "f": "x"}, "dalibor": {"qf": "0-0 (0:0)", "sf": "0-1 (1:2)", "f": "x"}, "leonardo": {"qf": "0-1 (0:2)", "sf": "1-0 (2:0)", "f": "x"}}, "bojanp": {"dejan": {"qf": "0-0 (0:0)", "sf": "x", "f": "x"}, "milos": {"qf": "0-0 (0:0)", "sf": "x", "f": "x"}, "djordje": {"qf": "0-1 (0:2)", "sf": "0-1 (1:2)", "f": "x"}, "bojanm": {"qf": "1-0 (2:0)", "sf": "0-1 (0:2)", "f": "x"}, "goran": {"qf": "x", "sf": "x", "f": "x"}, "dalibor": {"qf": "0-1 (1:2)", "sf": "x", "f": "x"}, "leonardo": {"qf": "0-1 (1:2)", "sf": "x", "f": "x"}}, "dalibor": {"dejan": {"qf": "0-0 (0:0)", "sf": "1-0 (2:1)", "f": "x"}, "milos": {"qf": "0-1 (0:2)", "sf": "x", "f": "0-1 (1:2)"}, "djordje": {"qf": "x", "sf": "x", "f": "x"}, "bojanm": {"qf": "0-0 (0:0)", "sf": "x", "f": "0-1 (0:2)"}, "goran": {"qf": "0-0 (0:0)", "sf": "1-0 (2:1)", "f": "x"}, "bojanp": {"qf": "1-0 (2:1)", "sf": "x", "f": "x"}, "leonardo": {"qf": "x", "sf": "x", "f": "x"}}, "leonardo": {"dejan": {"qf": "0-0 (0:0)", "sf": "x", "f": "x"}, "milos": {"qf": "0-1 (1:2)", "sf": "0-2 (1:4)", "f": "x"}, "djordje": {"qf": "0-1 (1:2)", "sf": "x", "f": "x"}, "bojanm": {"qf": "0-1 (1:2)", "sf": "x", "f": "x"}, "goran": {"qf": "1-0 (2:0)", "sf": "0-1 (0:2)", "f": "x"}, "bojanp": {"qf": "1-0 (2:1)", "sf": "x", "f": "x"}, "dalibor": {"qf": "x", "sf": "x", "f": "x"}}};
+
+  function statCell(val) {
+    if (!val || val === 'x' || val === '') return `<span style="color:var(--muted)">—</span>`;
+    const won  = val.startsWith('1-') || val.startsWith('2-');
+    const draw = val.startsWith('0-0');
+    const c    = won ? 'var(--green)' : draw ? 'var(--muted)' : 'var(--accent)';
+    const res  = val.split(' ')[0];
+    const legs = val.match(/\(([^)]+)\)/)?.[1] || '';
+    return `<span style="color:${c};font-weight:600">${res}</span><br><span style="color:var(--muted);font-size:10px">${legs}</span>`;
+  }
+
+  function renderGroups() {
+    const matchups = (koloMatchups[koloNum] || []);
+    const el = document.getElementById('matchups-list');
+    const badge = document.getElementById('kolo-matchup-badge');
+    if (badge) badge.textContent = `Kolo ${koloNum}`;
+    if (!el) return;
+    if (!matchups.length) {
+      el.innerHTML = '<div style="padding:20px;color:var(--muted);text-align:center;font-size:14px">Nema unesenih mečeva za ovo kolo.</div>';
+      return;
+    }
+
+    el.innerHTML = matchups.map((m, i) => {
+      const id1 = players.find(x => x.name === m.p1)?.id;
+      const id2 = players.find(x => x.name === m.p2)?.id;
+      const d1  = id1 && id2 ? H2H[id1]?.[id2] : null;
+      const d2  = id1 && id2 ? H2H[id2]?.[id1] : null;
+
+      const statsBlock = (d1 || d2) ? `
+        <div style="margin-top:10px;background:var(--card2);border-radius:8px;overflow:hidden;font-size:12px">
+          <div style="display:grid;grid-template-columns:1fr 72px 72px 72px;padding:5px 12px;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border)">
+            <div>Međusobni rezultati</div>
+            <div style="text-align:center">1/4 F</div>
+            <div style="text-align:center">1/2 F</div>
+            <div style="text-align:center">Finale</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 72px 72px 72px;padding:8px 12px;border-bottom:1px solid var(--border);align-items:center">
+            <div style="font-weight:500">${m.p1}</div>
+            <div style="text-align:center;line-height:1.3">${statCell(d1?.qf)}</div>
+            <div style="text-align:center;line-height:1.3">${statCell(d1?.sf)}</div>
+            <div style="text-align:center;line-height:1.3">${statCell(d1?.f)}</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 72px 72px 72px;padding:8px 12px;align-items:center">
+            <div style="font-weight:500">${m.p2}</div>
+            <div style="text-align:center;line-height:1.3">${statCell(d2?.qf)}</div>
+            <div style="text-align:center;line-height:1.3">${statCell(d2?.sf)}</div>
+            <div style="text-align:center;line-height:1.3">${statCell(d2?.f)}</div>
+          </div>
+        </div>` : '';
+
+      return `<div style="padding:14px 20px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--muted);min-width:24px">${i+1}</span>
+          <span style="flex:1;font-size:14px;font-weight:500">${m.p1}</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:1px;padding:3px 10px;background:rgba(230,57,70,0.1);border-radius:4px">VS</span>
+          <span style="flex:1;font-size:14px;font-weight:500;text-align:right">${m.p2}</span>
+        </div>
+        ${statsBlock}
+      </div>`;
+    }).join('');
+  }
+
+  function renderKoloGrid() {
+    document.getElementById('kolo-badge').textContent = 'KOLO ' + koloNum;
+    document.getElementById('kolo-grid').innerHTML = players.map(p => `
+      <div class="kolo-cell">
+        <div class="kolo-player-name">${p.name.split(' ')[0]}</div>
+        <input class="kolo-input" type="number" id="kolo-${p.id}" value="0" min="0" max="99">
+      </div>
+    `).join('');
+  }
+
+  function renderEditGrid() {
+    document.getElementById('edit-grid').innerHTML = players.map(p => `
+      <div class="edit-cell">
+        <div class="edit-player-name">${p.name.split(' ')[0]} ${p.name.split(' ')[1]?.charAt(0)||''}</div>
+        <div class="edit-row">
+          <input class="edit-input" type="number" id="edit-${p.id}" value="${p.pts}" min="0">
+          <button class="edit-save-btn" onclick="updatePts('${p.id}')">OK</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderMatchupInputs() {
+    const nextKolo = koloNum;
+    const existing = koloMatchups[nextKolo] || [{p1:'',p2:''},{p1:'',p2:''},{p1:'',p2:''},{p1:'',p2:''}];
+    const badge = document.getElementById('matchup-kolo-badge');
+    if(badge) badge.textContent = `KOLO ${nextKolo}`;
+    const el = document.getElementById('matchup-inputs');
+    if(!el) return;
+    const playerNames = players.map(p=>p.name);
+    const opts = playerNames.map(n=>`<option value="${n}">${n}</option>`).join('');
+    el.innerHTML = existing.map((m,i)=>`
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="font-family:'Bebas Neue',sans-serif;color:var(--muted);font-size:16px;min-width:20px">${i+1}</span>
+        <select id="mp1-${i}" style="flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border2);border-radius:6px;padding:8px;color:var(--text);font-size:13px">
+          <option value="">— Igrač 1 —</option>${opts}
+        </select>
+        <span style="color:var(--accent);font-weight:700;font-size:13px">VS</span>
+        <select id="mp2-${i}" style="flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border2);border-radius:6px;padding:8px;color:var(--text);font-size:13px">
+          <option value="">— Igrač 2 —</option>${opts}
+        </select>
+      </div>`).join('');
+    // Set existing values
+    existing.forEach((m,i)=>{
+      const s1 = document.getElementById(`mp1-${i}`);
+      const s2 = document.getElementById(`mp2-${i}`);
+      if(s1 && m.p1) s1.value = m.p1;
+      if(s2 && m.p2) s2.value = m.p2;
+    });
+  }
+
+  async function saveMatchups() {
+    const nextKolo = koloNum;
+    const matchups = [];
+    for(let i=0;i<4;i++){
+      const p1 = document.getElementById(`mp1-${i}`)?.value || '';
+      const p2 = document.getElementById(`mp2-${i}`)?.value || '';
+      if(p1 && p2) matchups.push({p1,p2});
+    }
+    koloMatchups[nextKolo] = matchups;
+    await saveData();
+    renderGroups();
+    const suc = document.getElementById('matchup-success');
+    suc.style.display='block';
+    setTimeout(()=>{suc.style.display='none';},3000);
+  }
+
+  const PLAYER_BIOS = {
+    'bojanm':   { img:'https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/bojan_majkic.jpg?raw=true',   pozicija:'Napadač',  omiljeni:'D20', bio:'Biografija uskoro...' },
+    'milos':    { img:'https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/milos_ivkovic.jpg?raw=true',   pozicija:'Strateg',   omiljeni:'D20', bio:'Biografija uskoro...' },
+    'djordje':  { img:'https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/djordje_trifunovic.jpg?raw=true', pozicija:'All-round', omiljeni:'Bull', bio:'Biografija uskoro...' },
+    'goran':    { img:'https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/goran_cimesa.jpg?raw=true',    pozicija:'Veteran',   omiljeni:'T16', bio:'Biografija uskoro...' },
+    'leonardo': { img:'https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/leonardo_giric.jpg?raw=true',  pozicija:'Kenjac',    omiljeni:'D15', bio:'Biografija uskoro...' },
+    'dalibor':  { img:'https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/dalibor_giric.jpg?raw=true',   pozicija:'Precizni',  omiljeni:'T18', bio:'Biografija uskoro...' },
+    'dejan':    { img:'https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/dejan_markovic.jpg?raw=true',  pozicija:'Legenda',   omiljeni:'T19', bio:'Biografija uskoro...' },
+    'bojanp':   { img:'https://github.com/TR1FA/4.Pikado_Invenda_Liga/blob/main/docs/images/bojan_milanovic.jpg?raw=true', pozicija:'Borac',     omiljeni:'T19', bio:'Biografija uskoro...' },
+  };
+
+  function renderPlayers() {
+    const s = sorted();
+    const grid = document.getElementById('players-grid');
+    if(!grid) return;
+    grid.innerHTML = s.map((p, i) => {
+      const bio = PLAYER_BIOS[p.id] || {};
+      const rank = i+1;
+      const rc = rank===1?'var(--gold)':rank===2?'var(--silver)':rank===3?'var(--bronze)':'var(--muted)';
+      return `<div class="player-card-bio" onclick="openPlayerModal('${p.id}')">
+        <div style="position:relative">
+          <img src="${bio.img||''}" alt="${p.name}" onerror="this.style.background='var(--card2)';this.style.height='200px'">
+          <div style="position:absolute;top:8px;left:8px;background:rgba(6,6,14,0.8);border-radius:6px;padding:3px 8px;font-family:'Bebas Neue',sans-serif;font-size:18px;color:${rc}">${rank}.</div>
+        </div>
+        <div class="pcb-info">
+          <div class="pcb-name">${p.name}${starsHtml(p.id)}</div>
+          <div class="pcb-pts">${p.pts} bodova · ${bio.pozicija||''}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function openPlayerModal(id) {
+    const p = players.find(x=>x.id===id);
+    const bio = PLAYER_BIOS[id] || {};
+    const s = sorted();
+    const rank = s.findIndex(x=>x.id===id)+1;
+    const existing = document.getElementById('player-modal');
+    if(existing) existing.remove();
+    const m = document.createElement('div');
+    m.className='modal-overlay'; m.id='player-modal';
+    m.onclick = e => { if(e.target===m) m.remove(); };
+    m.innerHTML = `<div class="modal-box">
+      <div class="modal-header">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px">${p.name}${starsHtml(id)}</span>
+        <button class="modal-close" onclick="document.getElementById('player-modal').remove()">✕</button>
+      </div>
+      <img class="modal-img" src="${bio.img||''}" alt="${p.name}" onerror="this.style.display='none'">
+      <div class="modal-body">
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">${bio.bio||'Biografija uskoro...'}</p>
+        <div class="modal-stat"><span class="modal-stat-label">Rang u ligi</span><span class="modal-stat-val" style="color:${rank<=3?'var(--gold)':'var(--text)'}">${rank}. mjesto</span></div>
+        <div class="modal-stat"><span class="modal-stat-label">Bodovi</span><span class="modal-stat-val">${p.pts}</span></div>
+        <div class="modal-stat"><span class="modal-stat-label">Omiljeni sektor</span><span class="modal-stat-val">${bio.omiljeni||'—'}</span></div>
+        <div class="modal-stat"><span class="modal-stat-label">Stil igre</span><span class="modal-stat-val">${bio.pozicija||'—'}</span></div>
+        ${LIGA_TITLES[id]?`<div class="modal-stat"><span class="modal-stat-label">Titula</span><span class="modal-stat-val" style="color:var(--gold)">★ ${LIGA_TITLES[id].title}</span></div>`:''}
+      </div>
+    </div>`;
+    document.body.appendChild(m);
+  }
+
+  function openGalleryModal(card) {
+    const img = card.querySelector('img');
+    const title = card.querySelector('div > div:first-child').textContent;
+    const sub   = card.querySelector('div > div:last-child').textContent;
+    const existing = document.getElementById('gallery-modal');
+    if(existing) existing.remove();
+    const m = document.createElement('div');
+    m.className='modal-overlay'; m.id='gallery-modal';
+    m.onclick = e => { if(e.target===m) m.remove(); };
+    m.innerHTML = `<div class="modal-box" style="max-width:600px">
+      <div class="modal-header">
+        <span style="font-size:14px;font-weight:600">${title}</span>
+        <button class="modal-close" onclick="document.getElementById('gallery-modal').remove()">✕</button>
+      </div>
+      <img src="${img.src}" style="width:100%;display:block;border-radius:0">
+      <div style="padding:14px 20px;font-size:12px;color:var(--muted)">${sub}</div>
+    </div>`;
+    document.body.appendChild(m);
+  }
+
+  function renderStreamSchedule() {
+    const matchups = koloMatchups[koloNum] || [];
+    const el = document.getElementById('stream-schedule');
+    if(!el) return;
+    if(!matchups.length){ el.textContent='Pogledajte tab Mečevi za raspored.'; return; }
+    el.innerHTML = matchups.map((m,i)=>`<div style="padding:4px 0;border-bottom:1px solid var(--border)">${i+1}. ${m.p1} <span style="color:var(--accent)">vs</span> ${m.p2}</div>`).join('');
+  }
+
+  function renderAll() {
+    renderStats();
+    renderLeaderboard();
+    renderGroups();
+    renderPlayers();
+    renderStreamSchedule();
+    if(isAdmin) {
+      renderKoloGrid();
+      renderEditGrid();
+      renderMatchupInputs();
+    }
+  }
+
+  function showTab(t) {
+    ['tabela','igraci','grupe','galerija','stream','admin'].forEach(x=>{
+      const v = document.getElementById('view-'+x);
+      const b = document.getElementById('tab-'+x);
+      if(v) v.classList.toggle('active', x===t);
+      if(b) b.classList.toggle('active', x===t);
+    });
+  }
+
+  async function updatePts(id) {
+    const val = parseInt(document.getElementById('edit-'+id).value) || 0;
+    const p = players.find(x=>x.id===id);
+    p.pts = val;
+    await saveData();
+    renderStats();
+    renderLeaderboard();
+    renderGroups();
+    renderEditGrid();
+  }
+
+  async function saveRound() {
+    let changed = false;
+    players.forEach(p => {
+      const inp = document.getElementById('kolo-'+p.id);
+      if(inp) {
+        const add = parseInt(inp.value) || 0;
+        if(add > 0) { p.pts += add; p.round = add; changed = true; }
+        else { p.round = 0; }
+      }
+    });
+    if(changed) {
+      koloNum++;
+      await saveData();
+      renderAll();
+      const suc = document.getElementById('save-success');
+      suc.style.display = 'block';
+      setTimeout(()=>{ suc.style.display='none'; }, 3000);
+    }
+  }
+
+  function tryLogin() {
+    const pw = document.getElementById('pw-input').value;
+    const err = document.getElementById('login-error');
+    if(pw === ADMIN_PW) {
+      isAdmin = true;
+      document.getElementById('login-area').style.display = 'none';
+      document.getElementById('admin-panel').style.display = 'block';
+      document.getElementById('admin-badge').style.display = 'block';
+      renderKoloGrid();
+      renderEditGrid();
+      renderMatchupInputs();
+      err.style.display = 'none';
+    } else {
+      err.style.display = 'block';
+      document.getElementById('pw-input').value = '';
+    }
+  }
+
+  function logout() {
+    isAdmin = false;
+    document.getElementById('login-area').style.display = 'block';
+    document.getElementById('admin-panel').style.display = 'none';
+    document.getElementById('admin-badge').style.display = 'none';
+    document.getElementById('pw-input').value = '';
+  }
+
+  async function resetData() {
+    if(confirm('Sigurno želiš resetovati sve bodove na početne vrijednosti?')) {
+      players = JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
+      koloNum = 6;
+      await saveData();
+      renderAll();
+    }
+  }
+
+  loadData();
+</script>
+</body>
+</html>
