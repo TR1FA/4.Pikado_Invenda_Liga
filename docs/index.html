@@ -151,7 +151,7 @@
     /* ── TABELA ── */
     .lb-header-row {
       display: grid;
-      grid-template-columns: 40px 1fr 80px 70px 70px 70px 90px;
+      grid-template-columns: 40px 1fr 70px 60px 60px 60px 80px 70px;
       align-items: center;
       padding: 10px 20px;
       background: rgba(255,255,255,0.03);
@@ -165,7 +165,7 @@
     }
     .lb-row {
       display: grid;
-      grid-template-columns: 40px 1fr 80px 70px 70px 70px 90px;
+      grid-template-columns: 40px 1fr 70px 60px 60px 60px 80px 70px;
       align-items: center;
       padding: 13px 20px;
       border-bottom: 1px solid var(--border);
@@ -175,6 +175,8 @@
     .lb-row:hover { background: rgba(255,255,255,0.03); }
     .lb-row.playoff { background: rgba(45,198,83,0.04); }
     .lb-row.playoff:hover { background: rgba(45,198,83,0.07); }
+    .lb-row.barraz { background: rgba(240,180,41,0.04); }
+    .lb-row.barraz:hover { background: rgba(240,180,41,0.07); }
 
     .lb-rank {
       font-family: 'Bebas Neue', sans-serif;
@@ -204,6 +206,17 @@
       background: rgba(45,198,83,0.15);
       border: 1px solid rgba(45,198,83,0.35);
       color: var(--green);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .barraz-pill {
+      background: rgba(240,180,41,0.13);
+      border: 1px solid rgba(240,180,41,0.35);
+      color: var(--gold);
       font-size: 10px;
       font-weight: 700;
       padding: 3px 8px;
@@ -298,22 +311,32 @@
       transition: transform 0.2s, border-color 0.2s;
     }
     .player-card:hover { transform: translateY(-2px); border-color: rgba(240,180,41,0.3); }
+
+    /* ── FIX 1: Fotografije igrača ── */
     .player-avatar {
-      width: 64px;
-      height: 64px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       margin: 0 auto 12px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px;
-      font-weight: 400;
+      font-size: 28px;
+    }
+    .player-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
     }
     .av-gold { background: rgba(240,180,41,0.15); border: 2px solid var(--gold); color: var(--gold); }
     .av-silver { background: rgba(168,178,193,0.15); border: 2px solid var(--silver); color: var(--silver); }
     .av-bronze { background: rgba(205,127,64,0.15); border: 2px solid var(--bronze); color: var(--bronze); }
     .av-default { background: rgba(255,255,255,0.07); border: 2px solid var(--border2); color: var(--muted); }
+
     .player-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
     .player-pts { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); line-height: 1; }
     .player-pts-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
@@ -348,9 +371,7 @@
       align-items: center;
       justify-content: center;
     }
-    .stream-offline-text {
-      text-align: center;
-    }
+    .stream-offline-text { text-align: center; }
 
     /* ── LOGIN ── */
     .login-wrap {
@@ -496,7 +517,7 @@
     .leg-label.lw { color: var(--green); }
     .leg-label.ll { color: var(--accent); }
 
-    /* Edit grid */
+    /* ── FIX 2: Edit grid — svih 8 igrača, 2 reda po 4 ── */
     .edit-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -623,12 +644,13 @@
 
     @media (max-width: 600px) {
       .lb-header-row, .lb-row {
-        grid-template-columns: 36px 1fr 60px 55px 55px 55px 70px;
-        padding: 10px 12px;
-        font-size: 13px;
+        grid-template-columns: 32px 1fr 54px 48px 48px 48px 64px 54px;
+        padding: 8px 10px;
+        font-size: 12px;
       }
       .stats-row { grid-template-columns: repeat(2,1fr); }
-      .kolo-grid, .edit-grid { grid-template-columns: repeat(2,1fr); }
+      .kolo-grid { grid-template-columns: repeat(2,1fr); }
+      .edit-grid { grid-template-columns: repeat(2,1fr); }
       .matchup-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -678,9 +700,21 @@
         <div style="text-align:center">Leg W</div>
         <div style="text-align:center">Leg L</div>
         <div style="text-align:center">+/−</div>
+        <div style="text-align:center">Preost.</div>
         <div class="col-status" style="text-align:center">Status</div>
       </div>
       <div id="lb-body"></div>
+    </div>
+    <!-- Legenda zona -->
+    <div style="margin-top:12px;display:flex;gap:16px;flex-wrap:wrap;padding:0 4px">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)">
+        <div style="width:10px;height:10px;border-radius:2px;background:rgba(45,198,83,0.25);border:1px solid rgba(45,198,83,0.4)"></div>
+        Playoff (Top 4)
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)">
+        <div style="width:10px;height:10px;border-radius:2px;background:rgba(240,180,41,0.2);border:1px solid rgba(240,180,41,0.4)"></div>
+        Baraž zona (5.–6.)
+      </div>
     </div>
   </div>
 
@@ -804,7 +838,7 @@
         <div class="save-success" id="save-success">✓ Kolo sačuvano!</div>
       </div>
 
-      <!-- Direktna izmjena -->
+      <!-- Direktna izmjena — svih 8 igrača -->
       <div class="admin-section">
         <div class="admin-section-header">
           <h3>Direktna izmjena</h3>
@@ -830,6 +864,7 @@
 <script>
   const ADMIN_PW   = 'admin123';
   const NPOINT_URL = 'https://api.npoint.io/56782e240f20d78ee00a';
+  const TOTAL_KOLA = 28; // ukupan broj kola u sezoni
 
   let isAdmin = false, isSaving = false;
   let koloNum = 13, koloMatchups = {};
@@ -940,6 +975,8 @@
   /* ── STATS ── */
   function renderStats() {
     const s = sorted();
+    const odigrana = koloNum - 1;
+    const preostala = Math.max(0, TOTAL_KOLA - odigrana);
     document.getElementById('stats-grid').innerHTML = `
       <div class="stat-card">
         <div class="stat-label">Lider</div>
@@ -952,14 +989,14 @@
         <div class="stat-sub">u ligi</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Kolo</div>
-        <div class="stat-val">${koloNum - 1}</div>
-        <div class="stat-sub">odigranih</div>
+        <div class="stat-label">Odigranih kola</div>
+        <div class="stat-val">${odigrana}</div>
+        <div class="stat-sub">od ${TOTAL_KOLA} ukupno</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Playoff</div>
-        <div class="stat-val" style="color:var(--green)">4</div>
-        <div class="stat-sub">mjesta</div>
+        <div class="stat-label">Preostalo kola</div>
+        <div class="stat-val" style="color:var(--accent)">${preostala}</div>
+        <div class="stat-sub">do kraja sezone</div>
       </div>
     `;
   }
@@ -967,37 +1004,59 @@
   /* ── LEADERBOARD ── */
   function renderLeaderboard() {
     const s = sorted();
+    const odigrana = koloNum - 1;
+    const preostala = Math.max(0, TOTAL_KOLA - odigrana);
+
     document.getElementById('lb-body').innerHTML = s.map((p, i) => {
       const rank = i + 1;
-      const playoff = rank <= 4;
-      const ptsColor = p.pts >= 20 ? 'var(--gold)' : p.pts >= 14 ? 'var(--silver)' : p.pts >= 10 ? 'var(--bronze)' : 'var(--text)';
+      const isPlayoff = rank <= 4;
+      const isBarraz  = rank === 5 || rank === 6;
+      const rowClass  = isPlayoff ? ' playoff' : isBarraz ? ' barraz' : '';
+      const ptsColor  = p.pts >= 20 ? 'var(--gold)' : p.pts >= 14 ? 'var(--silver)' : p.pts >= 10 ? 'var(--bronze)' : 'var(--text)';
       const diff = (p.lw || 0) - (p.ll || 0);
       const diffStr = diff > 0
         ? `<span style="color:var(--green);font-weight:700">+${diff}</span>`
         : diff < 0
         ? `<span style="color:var(--accent);font-weight:700">${diff}</span>`
         : `<span style="color:var(--muted)">0</span>`;
+
+      let statusHtml;
+      if (isPlayoff) statusHtml = '<span class="playoff-pill">Playoff</span>';
+      else if (isBarraz) statusHtml = '<span class="barraz-pill">Baraž</span>';
+      else statusHtml = '<span style="color:var(--muted)">—</span>';
+
       return `
-        <div class="lb-row${playoff ? ' playoff' : ''}">
+        <div class="lb-row${rowClass}">
           <div class="lb-rank ${rankClass(rank)}">${rank}</div>
           <div class="lb-name">${p.name}${starsHtml(p.id)}</div>
           <div class="lb-pts" style="color:${ptsColor}">${p.pts}</div>
           <div class="col-center" style="color:var(--green)">${p.lw || 0}</div>
           <div class="col-center" style="color:var(--accent)">${p.ll || 0}</div>
           <div class="col-center">${diffStr}</div>
-          <div class="col-status">${playoff ? '<span class="playoff-pill">Playoff</span>' : '<span style="color:var(--muted)">—</span>'}</div>
+          <div class="col-center" style="color:var(--muted);font-size:14px">${preostala}</div>
+          <div class="col-status">${statusHtml}</div>
         </div>`;
     }).join('');
   }
 
-  /* ── IGRAČI ── */
+  /* ── IGRAČI — sa fotografijama ── */
   function renderPlayers() {
     const s = sorted();
     document.getElementById('players-grid').innerHTML = s.map((p, i) => {
       const rank = i + 1;
+      const avCls = avClass(rank);
+      // Pokušaj učitati sliku, fallback na inicijale
+      const avatarHtml = `
+        <div class="player-avatar ${avCls}">
+          <img
+            src="images/${p.id}.jpg"
+            alt="${p.name}"
+            onerror="this.style.display='none'; this.parentElement.innerHTML='${initials(p.name)}';"
+          >
+        </div>`;
       return `
         <div class="player-card">
-          <div class="player-avatar ${avClass(rank)}">${initials(p.name)}</div>
+          ${avatarHtml}
           <div class="player-name">${p.name}${starsHtml(p.id)}</div>
           <div class="player-pts">${p.pts}</div>
           <div class="player-pts-label">bodova</div>
@@ -1023,7 +1082,6 @@
         <span class="vs-badge">VS</span>
         <span style="flex:1;text-align:right">${m[1]}</span>
       </div>`).join('');
-    // Update stream schedule
     document.getElementById('stream-schedule').innerHTML = matchups.map(m => `<div style="margin-bottom:4px">🎯 ${m[0]} vs ${m[1]}</div>`).join('');
   }
 
@@ -1059,7 +1117,6 @@
     renderAll();
     saveData();
     showFlash('save-success');
-    // Reset inputs
     players.forEach(p => {
       ['pts','lw','ll'].forEach(f => {
         const el = document.getElementById(`kolo-${f}-${p.id}`);
@@ -1068,8 +1125,9 @@
     });
   }
 
-  /* ── ADMIN: EDIT GRID ── */
+  /* ── ADMIN: EDIT GRID — svih 8 igrača ── */
   function renderEditGrid() {
+    // grid-template-columns: repeat(4, 1fr) → prikazuje sve 8 u 2 reda od po 4
     document.getElementById('edit-grid').innerHTML = players.map(p => `
       <div class="edit-cell">
         <div class="edit-player-name">${p.name.split(' ')[0]}</div>
