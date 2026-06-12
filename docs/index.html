@@ -243,7 +243,7 @@
   <!-- MEČEVI -->
   <div class="view" id="view-mecevi">
     <div class="lb-card">
-      <div class="lb-card-header"><h2>Mečevi kola</h2><span class="season-badge" id="mecevi-kolo-label">· Kolo 14</span></div>
+      <div class="lb-card-header"><h2>Mečevi kola</h2><span class="season-badge" id="mecevi-kolo-label">· Kolo 15</span></div>
       <div class="matchup-grid" id="mecevi-grid">
         <div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:30px;font-size:13px">Mečevi još nisu objavljeni. Pratite Admin panel.</div>
       </div>
@@ -317,7 +317,7 @@
     </div>
     <div class="admin-panel" id="admin-panel">
       <div class="admin-section">
-        <div class="admin-section-header"><h3>Mečevi kola</h3><span class="kolo-badge" id="matchup-kolo-badge">KOLO 14</span></div>
+        <div class="admin-section-header"><h3>Mečevi kola</h3><span class="kolo-badge" id="matchup-kolo-badge">KOLO 15</span></div>
         <div style="padding:16px">
           <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Unesite mečeve za sljedeće kolo (po 4 meča)</div>
           <div id="matchup-inputs"></div>
@@ -326,7 +326,7 @@
         </div>
       </div>
       <div class="admin-section">
-        <div class="admin-section-header"><h3>Unos bodova i legova po kolu</h3><span class="kolo-badge" id="kolo-badge">KOLO 14</span></div>
+        <div class="admin-section-header"><h3>Unos bodova i legova po kolu</h3><span class="kolo-badge" id="kolo-badge">KOLO 15</span></div>
         <div class="legend-row">Bodovi = bodovi za kolo &nbsp;·&nbsp; <span style="color:var(--green)">LW</span> = leg pobjede &nbsp;·&nbsp; <span style="color:var(--accent)">LL</span> = leg porazi</div>
         <div class="kolo-grid" id="kolo-grid"></div>
         <button class="save-kolo-btn" onclick="saveRound()">✓ Sačuvaj kolo</button>
@@ -359,18 +359,18 @@
   const GALLERY_COUNT = 12;
 
   let isAdmin=false, isSaving=false;
-  let koloNum=14, koloMatchups={}, archive=[];
+  let koloNum=15, koloMatchups={}, archive=[];
   let players=[];
 
   const DEFAULT_PLAYERS = [
-    {id:'djordje',  name:'Đorđe Trifunović', pts:26, lw:34, ll:19, bio:'Najvoli da svira TAMBURELO!'},
+    {id:'djordje',  name:'Đorđe Trifunović', pts:31, lw:40, ll:21, bio:'Najvoli da svira TAMBURELO!'},
     {id:'milos',    name:'Miloš Ivković',    pts:26, lw:31, ll:29, bio:'Ovaj mali je opasan!'},
-    {id:'bojanm',   name:'Bojan Majkić',     pts:25, lw:33, ll:20, bio:'Bato je inače Judo trener!'},
-    {id:'dejan',    name:'Dejan Marković',   pts:18, lw:19, ll:27, bio:'On je sa Oficirca!'},
-    {id:'goran',    name:'Goran Cimeša',     pts:16, lw:21, ll:24, bio:'Veteran, od boćanja su mu muda kao kugle!'},
-    {id:'bojanp',   name:'Bojan Milanović',  pts:16, lw:18, ll:27, bio:'Zna da napravi PROBLEMOVE!'},
-    {id:'leonardo', name:'Leonardo Giric',   pts:15, lw:17, ll:26, bio:'Zašto ga zovu Kenjac?'},
-    {id:'dalibor',  name:'Dalibor Giric',    pts:12, lw:13, ll:21, bio:'Smirena ruka!'},
+    {id:'bojanm',   name:'Bojan Majkić',     pts:27, lw:34, ll:22, bio:'Bato je inače Judo trener!'},
+    {id:'dejan',    name:'Dejan Marković',   pts:18, lw:20, ll:29, bio:'On je sa Oficirca!'},
+    {id:'goran',    name:'Goran Cimeša',     pts:19, lw:26, ll:27, bio:'Veteran, od boćanja su mu muda kao kugle!'},
+    {id:'bojanp',   name:'Bojan Milanović',  pts:16, lw:18, ll:29, bio:'Zna da napravi PROBLEMOVE!'},
+    {id:'leonardo', name:'Leonardo Giric',   pts:17, lw:20, ll:29, bio:'Zašto ga zovu Kenjac?'},
+    {id:'dalibor',  name:'Dalibor Giric',    pts:12, lw:13, ll:23, bio:'Smirena ruka!'},
   ];
   const LIGA_TITLES = {
     'dejan':{title:'Pobjednik 1. Pikado Invenda Lige'},
@@ -382,7 +382,7 @@
 
   async function loadData(){
     players = JSON.parse(JSON.stringify(DEFAULT_PLAYERS));
-    koloNum=14; koloMatchups={}; archive=[];
+    koloNum=15; koloMatchups={}; archive=[];
     renderAll();
     try{
       const res=await fetch(NPOINT_URL+'?t='+Date.now());
@@ -526,7 +526,7 @@
   function renderKoloGrid(){
     document.getElementById('kolo-grid').innerHTML=players.map(p=>`
       <div class="kolo-cell"><div class="kolo-player-name">${esc(p.name.split(' ')[0])}</div>
-      <input class="kolo-input" id="kolo-pts-${p.id}" type="number" min="0" max="3" value="0" placeholder="Bod">
+      <input class="kolo-input" id="kolo-pts-${p.id}" type="number" min="0" max="5" value="0" placeholder="Bod">
       <div class="kolo-leg-row">
         <div style="flex:1"><input class="kolo-leg-input lw" id="kolo-lw-${p.id}" type="number" min="0" value="0"><div class="leg-label lw">LW</div></div>
         <div style="flex:1"><input class="kolo-leg-input ll" id="kolo-ll-${p.id}" type="number" min="0" value="0"><div class="leg-label ll">LL</div></div>
@@ -609,7 +609,7 @@
   }
   function resetData(){
     if(!confirm('Resetovati sve podatke na default vrijednosti? (Briše i arhivu)')) return;
-    players=JSON.parse(JSON.stringify(DEFAULT_PLAYERS)); koloNum=14; koloMatchups={}; archive=[];
+    players=JSON.parse(JSON.stringify(DEFAULT_PLAYERS)); koloNum=15; koloMatchups={}; archive=[];
     renderAll(); renderEditGrid(); saveData();
   }
 
